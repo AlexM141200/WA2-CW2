@@ -50,20 +50,40 @@ class GuestBook {
     }
 
     // function to return all entries from the database
-    getAllMenus() {
+    getLunchMenus() {
         //return a Promise object, which can be resolved or rejected
         return new Promise((resolve, reject) => {
             //use the find() function of the database to get the data,
             //error first callback function, err for error, entries for data
-            this.db.find({}, function (err, foods) {
+            this.db.find({menu: 'lunch'}, function (err, lunchMenus) {
                 //if error occurs reject Promise
                 if (err) {
                     reject(err);
                     //if no error resolve the promise & return the data
                 } else {
-                    resolve(foods);
+                    resolve(lunchMenus);
                     //to see what the returned data looks like
-                    console.log('function all() returns: ', foods);
+                   console.log('function all() returns: ', lunchMenus);
+                }
+            })
+        })
+    }
+
+    // function to return all entries from the database
+    getDinnerMenus() {
+        //return a Promise object, which can be resolved or rejected
+        return new Promise((resolve, reject) => {
+            //use the find() function of the database to get the data,
+            //error first callback function, err for error, entries for data
+            this.db.find({menu: 'dinner'}, function (err, dinnerMenus) {
+                //if error occurs reject Promise
+                if (err) {
+                    reject(err);
+                    //if no error resolve the promise & return the data
+                } else {
+                    resolve(dinnerMenus);
+                    //to see what the returned data looks like
+                   // console.log('function all() returns: ', foods);
                 }
             })
         })
@@ -87,9 +107,9 @@ class GuestBook {
         })
     }
 
-    getEntriesByUser(authorName) {
+    getFoodsByMenus(menu) {
         return new Promise((resolve, reject) => {
-            this.db.find({ 'author': authorName }, function (err, menus) {
+            this.db.find({ 'menu': menu }, function (err, menus) {
                 if (err) {
                     reject(err);
                 } else {

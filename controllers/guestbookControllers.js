@@ -5,7 +5,7 @@ const db = new guestbookDAO();
 db.init();
 
 exports.show_login = function (req, res) {
-  res.render("user/login");
+  res.render("staff/login");
 };
 
 exports.handle_login = function (req, res) {
@@ -16,17 +16,42 @@ exports.handle_login = function (req, res) {
   });
 };
 
+exports.menu_page = function (req, res) {
+	db.getLunchMenus()
+		.then((lunchMenus) => {
+		db.getDinnerMenus()
+			.then((dinnerMenus) => {
+				res.render("entries", {
+          title: "Menus",
+					LunchMenus: lunchMenus,
+
+					DinnerMenus: dinnerMenus
+					})
+          console.log(lunchMenus);
+          console.log(dinnerMenus);
+					});
+				})
+			.catch((err) => {
+			console.log("Promise Rejected", err);
+			});
+};
+
 exports.landing_page = function (req, res) {
-  db.getAllMenus()
-    .then((list) => {
-      res.render("entries", {
-        title: "Guest Book",
-        foods: list,
-      });
-    })
-    .catch((err) => {
-      console.log("promise rejected", err);
-    });
+  res.render("landingPage", {
+    title: "Manson's Bistro",
+  });
+};
+
+exports.review_page = function (req, res) {
+  res.render("review", {
+    title: "Manson's Bistro",
+  });
+};
+
+exports.about_page = function (req, res) {
+  res.render("about", {
+    title: "About Us",
+  });
 };
 
 exports.show_new_entries = function (req, res) {
@@ -47,13 +72,13 @@ exports.post_new_entry = function (req, res) {
 };
 
 exports.show_user_entries = function (req, res) {
-  let user = req.params.author;
-  db.getEntriesByUser(user)
+  let user = req.params.menu;
+  db.getEntriesByUser(menu)
     .then((entries) => {
       res.render("entries", {
         title: "Guest Book",
-        user: "user",
-        entries: entries,
+        menu: menu,
+        foods: foods,
       });
     })
     .catch((err) => {
@@ -63,7 +88,7 @@ exports.show_user_entries = function (req, res) {
 };
 
 exports.show_register_page = function (req, res) {
-  res.render("user/register");
+  res.render("staff/register");
 };
 
 exports.post_new_user = function (req, res) {

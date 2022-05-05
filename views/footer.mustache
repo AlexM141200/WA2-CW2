@@ -1,0 +1,31 @@
+ <head>
+ <link rel="stylesheet" type="text/css" href="/styles/navBar.css">
+ </head>
+  <footer class="footer" style="align-right">
+      <div class="footer__contentwrapper">
+        <div class="footer__copyright">
+          &copy; Copyright 2022 &emsp; <em>Manson's Family Bistro </em>
+        </div>
+        <div class="footer__logo">
+        </div>
+        <div class="footer__linkcontainer">
+          <ul class="footer__list">
+
+{{^user}}
+  <a id="login" href="/login" class="btn btn-primary">
+    Sign in
+  </a>
+  <a id="login" href="/register" class="btn btn-primary">
+    Register
+  </a>
+{{/user}}
+{{#user}}
+  <a id="logout" href="/logout" class="btn btn-primary">
+    Sign out
+  </a>
+{{/user}}
+
+          </ul>
+        </div>
+      </div>
+    </footer>

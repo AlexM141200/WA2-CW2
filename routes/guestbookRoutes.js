@@ -6,7 +6,10 @@ const {verify} = require('../auth/auth')
 
 router.get('/login', controller.show_login);
 router.post('/login', login, controller.handle_login);
+router.get("/menu", controller.menu_page);
 router.get("/", controller.landing_page);
+router.get("/about", controller.about_page);
+router.get("/about", controller.review_page);
 router.get('/new',verify,controller.show_new_entries);
 router.post('/new', verify, controller.post_new_entry);
 router.get('/posts/:author', controller.show_user_entries);
