@@ -13,12 +13,16 @@ class UserDAO {
             this.db = new Datastore();
         }
     }
-    // for the demo the password is the bcrypt of the user name
     init() {
         this.db.insert({
             user: 'Peter',
             password:
             '$2b$10$I82WRFuGghOMjtu3LLZW9OAMrmYOlMZjEEkh.vx.K2MM05iu5hY2C'
+        });
+        this.db.insert({
+            user: 'alex',
+            password:
+            'alextest'
         });
         this.db.insert({
             user: 'Ann',

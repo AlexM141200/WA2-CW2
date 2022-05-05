@@ -2,25 +2,11 @@
 <head>
 {{>header}}
 </head>
-<body class="container">
+<body>
 <h2>Write a new entry</h2>
 <div class="text-right" style="margin-bottom: 1em;">
-{{^user}}
-  <a id="login" href="/register" class="btn btn-primary">
-    Register
-  </a>
-  <a id="login" href="/login" class="btn btn-primary">
-    Sign in
-  </a>
-{{/user}}
-{{#user}}
-
-  <a id="logout" href="/logout" class="btn btn-primary">
-    Sign out
-  </a>
-{{/user}}
 </div>
-<form method="post" role="form" action="/new">
+<form method="post" role="form" action="/addFood" id="addFoodForm">
 <div class="form-group">
 <label for="Dishname">Dish Name</label>
 <input type="text" class="form-control" id="dishname"
@@ -56,5 +42,5 @@ required>
 </div>
 </form>
 </body>
-{{>footer}}
 </html>
+{{>footer}}

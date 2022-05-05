@@ -17,15 +17,13 @@ router.get('/register', controller.show_register_page);
 router.post('/register', controller.post_new_user);
 router.get("/loggedIn",verify, controller.loggedIn_landing);
 router.get("/logout", controller.logout);
+router.get("/deleteFood", controller.new_delete_food);
+
 
 router.use(function(req, res) {
         res.status(404);
         res.type('text/plain');
         res.send('404 Not found.');
     });
-router.use(function(err, req, res, next) {
-        res.status(500);
-        res.type('text/plain');
-        res.send('Internal Server Error.');
-    });
+
 module.exports = router;

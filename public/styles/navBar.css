@@ -43,3 +43,59 @@ ul {
   padding: 0;
 }
 
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+  column-count:2;
+}
+
+.card{
+  margin: 14px;
+  
+}
+
+
+.card:hover{
+  background-color: white;
+  opacity: 50%;
+}
+
+#left {
+  float: left;
+  width: 80%;
+  overflow-y: scroll;
+  max-height: 100%;
+  box-sizing: border-box;
+  
+  
+}
+#right {
+  float: left;
+  width: 80%;
+  overflow-y: scroll;
+  max-height: 100%;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: auto;
+}
+
+body{
+  background-color: #d59667;
+}
+.menus{
+  max-height:100%;
+}
+
+#addFoodForm{
+  float:left;
+  margin: 1em;
+  border: 1px solid black;
+}

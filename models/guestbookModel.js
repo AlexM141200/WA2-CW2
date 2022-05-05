@@ -47,6 +47,78 @@ class GuestBook {
 
         });
         console.log("inserted risotto");
+
+        this.db.insert({
+            dishname: 'Smoked Salmon',
+            description: 'Smoked Salmon Dish.',
+            content: {
+                ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
+                allergyInfo: {
+                    allergens: ['Butter', 'Cheese', 'Wine'],
+                    advice: 'Contains: dairy produce, alcohol',
+                },
+            },
+            chefSpecial: true,
+            vegetarian: false,
+            menu: 'lunch',
+            price: '8.35',
+            available: false,
+
+        });
+
+        this.db.insert({
+            dishname: 'Garlic Bread Starter',
+            description: 'Smoked Salmon Dish.',
+            content: {
+                ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
+                allergyInfo: {
+                    allergens: ['Butter', 'Cheese', 'Wine'],
+                    advice: 'Contains: dairy produce, alcohol',
+                },
+            },
+            chefSpecial: true,
+            vegetarian: false,
+            menu: 'lunch',
+            price: '8.35',
+            available: false,
+
+        });
+
+        this.db.insert({
+            dishname: 'Mozarella Sticks',
+            description: 'Smoked Salmon Dish.',
+            content: {
+                ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
+                allergyInfo: {
+                    allergens: ['Butter', 'Cheese', 'Wine'],
+                    advice: 'Contains: dairy produce, alcohol',
+                },
+            },
+            chefSpecial: true,
+            vegetarian: false,
+            menu: 'lunch',
+            price: '8.35',
+            available: false,
+
+        });
+
+        this.db.insert({
+            dishname: 'Pizza',
+            description: 'Smoked Salmon Dish.',
+            content: {
+                ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
+                allergyInfo: {
+                    allergens: ['Butter', 'Cheese', 'Wine'],
+                    advice: 'Contains: dairy produce, alcohol',
+                },
+            },
+            chefSpecial: true,
+            vegetarian: false,
+            menu: 'lunch',
+            price: '8.35',
+            available: false,
+
+        });
     }
 
     // function to return all entries from the database
@@ -55,15 +127,15 @@ class GuestBook {
         return new Promise((resolve, reject) => {
             //use the find() function of the database to get the data,
             //error first callback function, err for error, entries for data
-            this.db.find({menu: 'lunch'}, function (err, lunchMenus) {
+            this.db.find({menu: 'lunch'}, function (err, LunchMenus) {
                 //if error occurs reject Promise
                 if (err) {
                     reject(err);
                     //if no error resolve the promise & return the data
                 } else {
-                    resolve(lunchMenus);
+                    resolve(LunchMenus);
                     //to see what the returned data looks like
-                   console.log('function all() returns: ', lunchMenus);
+                //   console.log('function all() returns: ', LunchMenus);
                 }
             })
         })
@@ -75,13 +147,13 @@ class GuestBook {
         return new Promise((resolve, reject) => {
             //use the find() function of the database to get the data,
             //error first callback function, err for error, entries for data
-            this.db.find({menu: 'dinner'}, function (err, dinnerMenus) {
+            this.db.find({menu: 'dinner'}, function (err, DinnerMenus) {
                 //if error occurs reject Promise
                 if (err) {
                     reject(err);
                     //if no error resolve the promise & return the data
                 } else {
-                    resolve(dinnerMenus);
+                    resolve(DinnerMenus);
                     //to see what the returned data looks like
                    // console.log('function all() returns: ', foods);
                 }

@@ -9,12 +9,23 @@ exports.show_login = function (req, res) {
 };
 
 exports.handle_login = function (req, res) {
-  // res.redirect("/new");
-  res.render("newEntry", {
-    title: "Guest Book",
-    user: "user"
-  });
+	db.getLunchMenus()
+		.then((lunchMenus) => {
+		db.getDinnerMenus()
+			.then((dinnerMenus) => {
+				res.render("staff/staffDashboard", {
+          title: "Staff Dashboard",
+					LunchMenus: lunchMenus,
+					DinnerMenus: dinnerMenus,
+          user: "user",       
+					})
+					});
+				})
+			.catch((err) => {
+			console.log("Promise Rejected", err);
+			});
 };
+
 
 exports.menu_page = function (req, res) {
 	db.getLunchMenus()
@@ -24,11 +35,8 @@ exports.menu_page = function (req, res) {
 				res.render("entries", {
           title: "Menus",
 					LunchMenus: lunchMenus,
-
 					DinnerMenus: dinnerMenus
 					})
-          console.log(lunchMenus);
-          console.log(dinnerMenus);
 					});
 				})
 			.catch((err) => {
@@ -127,3 +135,21 @@ exports.loggedIn_landing = function (req, res) {
 exports.logout = function (req, res) {
   res.clearCookie("jwt").status(200).redirect("/");
 };
+
+exports.delete_food= function (req, res) {
+  db.remove({ name: req.body.name }, {}, function (err, docsRem) {
+    if (err) {
+      console.log("error deleting document");
+    } else {
+      console.log(docsRem, "document removed from database");
+      res.redirect("/");
+    }
+  })
+}
+
+exports.new_delete_food =function(req,res){
+  res.render('deleteFood', {
+    'title':'Delete Food'
+  })
+}
+
