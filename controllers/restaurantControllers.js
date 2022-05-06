@@ -138,7 +138,7 @@ exports.addFood = function(req,res){
               req.body.price,
               req.body.available
   )
-  res.redirect("/loggedinStaff");
+  res.redirect("/menu");
 }
 
 //Initial Code for Update Menu - Unfinished

@@ -20,48 +20,48 @@ class Menu {
             menu: 'dinner',
             price: '11.50',
             available: true,
-            ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
+            ingredients: ['Garlic', 'Cheese', 'Onion', 'Wine', 'Beef Stock'],
             allergens: ['Butter', 'Cheese'],
         });
         console.log("inserted soup");
 
         this.db.insert({
-            dishname: 'Crab & Saffron Risotto',
-            description: 'A seasoned crab risotto garnished with finely chopped dill.',
+            dishname: 'Macaroni and Cheese',
+            description: 'A delicious nand creamy pub classic, sure to entice your taste buds!.',
             chefSpecial: true,
             vegetarian: false,
             menu: 'lunch',
             price: '8.35',
             available: true,
-            ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
-            allergens: ['Butter', 'Cheese', 'Wine'],
+            ingredients: ['Macaroni', 'Milk', 'Cheese'],
+            allergens: ['Butter', 'Cheese', 'Milk'],
 
         });
-        console.log("inserted risotto");
+        console.log("inserted mac&cheese");
 
         this.db.insert({
             dishname: 'Smoked Salmon',
-            description: 'Smoked Salmon Dish.',
+            description: 'Luscious Smoked Salmon Dish. Served with cream cheese and house salad.',
             chefSpecial: true,
             vegetarian: false,
-            menu: 'lunch',
-            price: '8.35',
+            menu: 'dinner',
+            price: '7.60',
             available: false,
-            ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
-            allergens: ['Butter', 'Cheese', 'Wine'],
+            ingredients: ['Salmon', 'Salad', 'Cream Cheese',],
+            allergens: ['Cheese', 'Nuts'],
 
         });
         console.log("inserted Salmon");
 
         this.db.insert({
             dishname: 'Garlic Bread Starter',
-            description: 'Smoked Salmon Dish.',
+            description: 'Freshly made garlic bread starter, for those feeling a little peckish.',
             chefSpecial: true,
             vegetarian: false,
             menu: 'lunch',
-            price: '8.35',
+            price: '9.40',
             available: true,
-            ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
+            ingredients: [''],
             allergens: ['Butter', 'Cheese', 'Wine'],
 
 
@@ -73,10 +73,10 @@ class Menu {
             chefSpecial: true,
             vegetarian: false,
             menu: 'dinner',
-            price: '8.35',
+            price: '10.20',
             available: false,
-            ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
-            allergens: ['Butter', 'Cheese', 'Wine'],
+            ingredients: ['Mozzarella', 'Bread Crumbs'],
+            allergens: ['Cheese'],
     
 
         });
@@ -84,14 +84,14 @@ class Menu {
 
         this.db.insert({
             dishname: 'Pizza',
-            description: 'Smoked Salmon Dish.',
+            description: 'Freshly baked, home made pizza..',
             chefSpecial: true,
             vegetarian: false,
-            menu: 'lunch',
+            menu: 'dinner',
             price: '8.35',
             available: false,
-            ingredients: ['Crab', 'Rice', 'Butter', 'Garlic', 'Cheese', 'Onion', 'Wine'],
-            allergens: ['Butter', 'Cheese', 'Wine'],
+            ingredients: ['Pizza Dough', 'Mozzarella', 'Tomato Base'],
+            allergens: ['Butter', 'Cheese', 'Eggs', 'Milk'],
 
         });
         console.log("inserted Pizza");
@@ -118,7 +118,7 @@ class Menu {
     }
 
 
-    
+
     getAllLunchMenus() {
         return new Promise((resolve, reject) => {
             this.db.find({menu: 'lunch'}, function (err, LunchMenus) {
@@ -179,7 +179,7 @@ class Menu {
             vegetarian: vegetarian,
             menu: menu,
             price: price,
-            available: available
+            available: true,
         }
         console.log('entry created', entry);
         this.db.insert(entry, function (err, doc) {
