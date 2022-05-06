@@ -9,6 +9,7 @@ exports.show_login = function (req, res) {
 };
 
 
+//when user logs in, takes them to staff dashboard
 exports.handle_login = function (req, res) {
 	db.getAllLunchMenus()
 		.then((lunchMenus) => {
@@ -27,13 +28,13 @@ exports.handle_login = function (req, res) {
 			});
 };
 
-
+//render Menu Page with both lunch and dinner menus separately, so they can be displayed separately
 exports.menu_page = function (req, res) {
 	db.getLunchMenus()
 		.then((lunchMenus) => {
 		db.getDinnerMenus()
 			.then((dinnerMenus) => {
-				res.render("entries", {
+				res.render("menus", {
           title: "Menus",
 					LunchMenus: lunchMenus,
 					DinnerMenus: dinnerMenus
@@ -100,10 +101,10 @@ exports.loggedInStaff = function (req, res) {
   db.getDinnerMenus()
     .then((dinnerMenus) => {
       res.render("staff/staffDashboard", {
-        title: "Menus",
+        title: "Staff Dashboard",
+               user: "user",
         LunchMenus: lunchMenus,
         DinnerMenus: dinnerMenus,
-        user: "user",
         })
         });
       })
@@ -112,6 +113,7 @@ exports.loggedInStaff = function (req, res) {
     });
 };
   
+
 //logout
 exports.logout = function (req, res) {
   res.clearCookie("jwt").status(200).redirect("/");
@@ -143,7 +145,21 @@ exports.addFood = function(req,res){
 
 //Initial Code for Update Menu - Unfinished
 exports.updateMenu=function(req,res){
-  db.updateMenu(req.params.id, req.params.dishname, req.params.description, req.params.chefSpecial, req.params.vegetarian, req.params.menu, req.params.price, req.params.available, req.params.ingredients, req.params.allergens,);
+  db.updateMenu(req.params.id,
+                req.params.dishname,
+                 req.params.description, 
+                 req.params.chefSpecial, 
+                 req.params.vegetarian,
+                  req.params.menu, 
+                  req.params.price, 
+                  req.params.available,
+                   req.params.ingredients, 
+                   req.params.allergens,);
   res.redirect("/loggedInStaff");
+}
+
+exports.update=function(req, res){
+  db.updateMenu(req.params.id, req.params.available);
+  res.redirect("/loggedInStaff")
 }
 

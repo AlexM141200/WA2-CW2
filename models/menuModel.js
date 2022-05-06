@@ -61,7 +61,7 @@ class Menu {
             menu: 'lunch',
             price: '9.40',
             available: true,
-            ingredients: [''],
+            ingredients: ['Garlic Butter', 'Foccacia'],
             allergens: ['Butter', 'Cheese', 'Wine'],
 
 
@@ -97,26 +97,19 @@ class Menu {
         console.log("inserted Pizza");
     }
 
-    // function to return all entries from the database
+    // function to return lunch entries from database
+    //only shows available lunches, as this method is for users at the main menu
     getLunchMenus() {
-        //return a Promise object, which can be resolved or rejected
         return new Promise((resolve, reject) => {
-            //use the find() function of the database to get the data,
-            //error first callback function, err for error, entries for data
             this.db.find({menu: 'lunch', available: true}, function (err, LunchMenus) {
-                //if error occurs reject Promise
                 if (err) {
                     reject(err);
-                    //if no error resolve the promise & return the data
                 } else {
                     resolve(LunchMenus);
-                    //to see what the returned data looks like
-                //   console.log('function all() returns: ', LunchMenus);
                 }
             })
         })
     }
-
 
 
     getAllLunchMenus() {
@@ -132,7 +125,6 @@ class Menu {
         })
     }
 
-
     getDinnerMenus() {
         return new Promise((resolve, reject) => {
             this.db.find({menu: 'dinner', available: true}, function (err, DinnerMenus) {
@@ -144,7 +136,6 @@ class Menu {
             })
         })
     }
-
 
      getAllDinnerMenus() {
         return new Promise((resolve, reject) => {
@@ -158,7 +149,6 @@ class Menu {
         })
     }
 
-     
      getAllMenus() {
         return new Promise((resolve, reject) => {
             this.db.find({}, function (err, DinnerMenus) {

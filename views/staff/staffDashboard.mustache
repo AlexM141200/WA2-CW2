@@ -4,8 +4,7 @@
 </head>
 <body>
 <h2>Staff Dashboard</h2>
-<div class="text-right" style="margin-bottom: 1em;">
-</div>
+<div class="col-md-6">
 <form method="post" role="form" action="/addFood" id="addFoodForm">
 <div class="form-group">
 <label for="dishname">Dish Name</label>
@@ -53,9 +52,9 @@ required>
 <input type="submit" value="Add Food" class="btn btn-primary">
 </div>
 </form>
-
-  <div class="menus">
-    <div class="column" id="menus">
+</div>
+ <div class="row justify-content-around">
+    <div class="col-4">
       <div class="container-sm" id="left" style="max-height: 80vh; overflow-y: scroll">
             <h4>Lunch Items<h4>
               {{#LunchMenus}}
@@ -94,7 +93,9 @@ required>
 <hr>
 {{/LunchMenus}}
     </div>
+    </div>
 
+    <div class="col-4">
 <div class="container-sm" id="right" style="max-height: 80vh; overflow-y: scroll">
 <h4>Dinner Items<h4>
 {{#DinnerMenus}}
@@ -138,7 +139,7 @@ required>
 
 </div>
 </div>
-
+ </div>
 
 </body>
 </html>
