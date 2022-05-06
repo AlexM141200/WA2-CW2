@@ -1,3 +1,4 @@
+const res = require('express/lib/response');
 const nedb = require('nedb');
 class GuestBook {
     constructor(dbFilePath) {
@@ -43,7 +44,7 @@ class GuestBook {
             vegetarian: false,
             menu: 'lunch',
             price: '8.35',
-            available: false,
+            available: true,
 
         });
         console.log("inserted risotto");
@@ -80,7 +81,7 @@ class GuestBook {
             vegetarian: false,
             menu: 'lunch',
             price: '8.35',
-            available: false,
+            available: true,
 
         });
 
@@ -127,6 +128,26 @@ class GuestBook {
         return new Promise((resolve, reject) => {
             //use the find() function of the database to get the data,
             //error first callback function, err for error, entries for data
+            this.db.find({menu: 'lunch', available: true}, function (err, LunchMenus) {
+                //if error occurs reject Promise
+                if (err) {
+                    reject(err);
+                    //if no error resolve the promise & return the data
+                } else {
+                    resolve(LunchMenus);
+                    //to see what the returned data looks like
+                //   console.log('function all() returns: ', LunchMenus);
+                }
+            })
+        })
+    }
+
+    // function to return all entries from the database
+    getAllLunchMenus() {
+        //return a Promise object, which can be resolved or rejected
+        return new Promise((resolve, reject) => {
+            //use the find() function of the database to get the data,
+            //error first callback function, err for error, entries for data
             this.db.find({menu: 'lunch'}, function (err, LunchMenus) {
                 //if error occurs reject Promise
                 if (err) {
@@ -143,6 +164,27 @@ class GuestBook {
 
     // function to return all entries from the database
     getDinnerMenus() {
+        //return a Promise object, which can be resolved or rejected
+        return new Promise((resolve, reject) => {
+            //use the find() function of the database to get the data,
+            //error first callback function, err for error, entries for data
+            this.db.find({menu: 'dinner', available: true}, function (err, DinnerMenus) {
+                //if error occurs reject Promise
+                if (err) {
+                    reject(err);
+                    //if no error resolve the promise & return the data
+                } else {
+                    resolve(DinnerMenus);
+                    //to see what the returned data looks like
+                   // console.log('function all() returns: ', foods);
+                }
+            })
+        })
+    }
+
+
+     // function to return all entries from the database
+     getAllDinnerMenus() {
         //return a Promise object, which can be resolved or rejected
         return new Promise((resolve, reject) => {
             //use the find() function of the database to get the data,
@@ -179,17 +221,35 @@ class GuestBook {
         })
     }
 
-    getFoodsByMenus(menu) {
-        return new Promise((resolve, reject) => {
-            this.db.find({ 'menu': menu }, function (err, menus) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(menus);
-                    console.log('getEntriesByUser returns: ', menus);
-                }
-            })
+    addFood(dishname, description, chefSpecial, vegetarian, menu, price, available) {
+        var entry = {
+            dishname: dishname,
+            description: description,
+            chefSpecial: chefSpecial,
+            vegetarian: vegetarian,
+            menu: menu,
+            price: price,
+            available: available
+        }
+        console.log('entry created', entry);
+        this.db.insert(entry, function (err, doc) {
+            if (err) {
+                console.log('Error inserting document', subject);
+            } else {
+                console.log('document inserted into the database', doc);
+            }
         })
+    }
+
+    delete(dishname){
+        this.db.remove({ dishname: dishname }, {}, function (err) {
+            if (err) {
+                console.log('Error deleting', dishname);
+            } else {
+                console.log('Food deleted');
+                res.redirect("/menu")
+            }
+              })
     }
 
 }

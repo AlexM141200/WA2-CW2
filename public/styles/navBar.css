@@ -59,7 +59,7 @@ ul {
 }
 
 
-.card:hover{
+#menucard:hover{
   background-color: white;
   opacity: 50%;
 }

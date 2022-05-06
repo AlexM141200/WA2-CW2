@@ -9,9 +9,9 @@ exports.show_login = function (req, res) {
 };
 
 exports.handle_login = function (req, res) {
-	db.getLunchMenus()
+	db.getAllLunchMenus()
 		.then((lunchMenus) => {
-		db.getDinnerMenus()
+		db.getAllDinnerMenus()
 			.then((dinnerMenus) => {
 				res.render("staff/staffDashboard", {
           title: "Staff Dashboard",
@@ -137,7 +137,7 @@ exports.logout = function (req, res) {
 };
 
 exports.delete_food= function (req, res) {
-  db.remove({ name: req.body.name }, {}, function (err, docsRem) {
+  db.remove({ name: req.body.dishname }, {}, function (err, docsRem) {
     if (err) {
       console.log("error deleting document");
     } else {
@@ -147,9 +147,44 @@ exports.delete_food= function (req, res) {
   })
 }
 
-exports.new_delete_food =function(req,res){
-  res.render('deleteFood', {
-    'title':'Delete Food'
-  })
+exports.addFood= function(req,res){
+  console.log("processing post-new_entry controller");
+  if (!req.body) {
+    response.status(400).send("Please Fix Entry");
+    return;
+  }
+  db.addFood(req.body.dishname,
+              req.body.description,
+              req.body.chefSpecial,
+              req.body.vegetarian,
+              req.body.menu,
+              req.body.price,
+              req.body.available
+  )
+  db.getLunchMenus()
+		.then((lunchMenus) => {
+		db.getDinnerMenus()
+			.then((dinnerMenus) => {
+				res.render("entries", {
+          title: "Menus",
+					LunchMenus: lunchMenus,
+					DinnerMenus: dinnerMenus
+					})
+					});
+				})
+			.catch((err) => {
+			console.log("Promise Rejected", err);
+			});
+}
+
+//Initial Code for Update Menu - Unfinished
+exports.updateMenu=function(req,res){
+  console.log("processing post-new_entry controller");
+  if (!req.body) {
+    response.status(400).send("Entry is invalid.");
+    return;
+  }
+  db.update(req.body.author, req.body.subject, req.body.contents);
+  res.redirect("/menu");
 }
 

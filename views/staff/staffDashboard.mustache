@@ -8,7 +8,7 @@
 </div>
 <form method="post" role="form" action="/addFood" id="addFoodForm">
 <div class="form-group">
-<label for="Dishname">Dish Name</label>
+<label for="dishname">Dish Name</label>
 <input type="text" class="form-control" id="dishname"
 name="dishname" placeholder="Enter name of dish"
 required>
@@ -25,22 +25,92 @@ required>
           name="price" placeholder="Enter a price"
           required>
           </div>
-              <div class="form-group">
-              <label for="chefSpecial">Is this a chef special?</label>
-              <input type="checkbox" class="form-control" id="chefSpecial"
-              name="chefSpecial" placeholder="Is this a chef special?"
+            <div class="form-group">
+              <label for="chefSpecial">Ingredients(comma separated)</label>
+              <input type="text" class="form-control" id="ingredients"
+              name="ingredients" placeholder="Enter Ingredients"
               required>
               </div>
-                  <div class="form-group">
-                  <label for="vegetarian">Is this vetegarian?</label>
-                  <input type="checkbox" class="form-control" id="vegetarian"
-                  name="vegetarian" placeholder="Vegetarian?"
+                <div class="form-group">
+                <label for="chefSpecial">Is this a chef special?</label>
+                <input type="checkbox" class="form-control" id="chefSpecial"
+                name="chefSpecial" placeholder="Is this a chef special?"
+                required>
+                </div>
+                    <div class="form-group">
+                    <label for="vegetarian">Is this vetegarian?</label>
+                    <input type="checkbox" class="form-control" id="vegetarian"
+                    name="vegetarian" placeholder="Vegetarian?"
+                    required>
+                    </div>
+                        <div class="form-group">
+                  <label for="menu">Menu? "lunch" or "dinner"</label>
+                  <input type="text" class="form-control" id="menu"
+                  name="menu" placeholder="Menu"
                   required>
                   </div>
 <div class="form-group">
-<input type="submit" value="Post entry" class="btn btn-primary">
+<input type="submit" value="Add Food" class="btn btn-primary">
 </div>
 </form>
+
+  <div class="menus">
+    <div class="column" id="menus">
+      <div class="container-sm" id="left" style="max-height: 80vh; overflow-y: scroll">
+            <h4>Lunch Items<h4>
+              {{#LunchMenus}}
+              <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">{{dishname}}</h4>
+     <p class="card-text">
+      Price: £ {{price}}
+     </p>
+    <p class="card-text">
+     Description: {{description}}
+    </p>          
+      <div class="card-footer">
+        Ingredients: {{content.ingredients}}
+      </div>
+</div>
+<div class="column">
+<a id="login" href="/delete" class="btn btn-danger" value="Delete" style="width:100%; margin:1px;">Delete</a>
+<a id="login" href="/delete" class="btn btn-secondary" value="Delete" style="width:100%; margin:1px;">Edit</a>
+</div>
+</div>
+<hr>
+{{/LunchMenus}}
+    </div>
+
+<div class="container-sm" id="right">
+<h4>Dinner Items<h4>
+{{#DinnerMenus}}
+<div class="card">
+  <div class="card-body">
+          <h4 class="card-title">{{dishname}}</h4>
+    <p class="card-text">
+      Price: £ {{price}}
+    </p>
+    <p class="card-text">
+     Description: {{description}}
+    </p>          
+      <div class="card-footer">
+        Ingredients: {{content.ingredients}}
+      </div>
+</div>
+<div class="column">
+<a id="login" href="/delete" class="btn btn-danger" value="Delete" style="width:100%; margin:1px;">Delete</a>
+<a id="login" href="/delete" class="btn btn-secondary" value="Delete" style="width:100%; margin: 1px;">Edit</a>
+
+</div>
+</div>
+<hr>
+{{/DinnerMenus}}
+</div>
+
+</div>
+</div>
+
+
 </body>
 </html>
 {{>footer}}
