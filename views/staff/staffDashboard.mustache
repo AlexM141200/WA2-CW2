@@ -3,7 +3,7 @@
 {{>header}}
 </head>
 <body>
-<h2>Write a new entry</h2>
+<h2>Staff Dashboard</h2>
 <div class="text-right" style="margin-bottom: 1em;">
 </div>
 <form method="post" role="form" action="/addFood" id="addFoodForm">
@@ -79,10 +79,11 @@ required>
                     </p>
                         <p class="card-text">
                         Available: {{available}}
-                        <a href="/update" value="Make Unavailable">Make Unavailable </a>
+                         <a href="/update/{{_id}}/{{available}}" value="Change Availability" style="text-align:right";>Change Availability </a>
                         </p> 
       <div class="card-footer">
-        Ingredients: {{content.ingredients}}
+        Ingredients: {{ingredients}}
+        Allergens: {{allergens}}
       </div>
 </div>
 <div class="column">
@@ -94,12 +95,13 @@ required>
 {{/LunchMenus}}
     </div>
 
-<div class="container-sm" id="right">
+<div class="container-sm" id="right" style="max-height: 80vh; overflow-y: scroll">
 <h4>Dinner Items<h4>
 {{#DinnerMenus}}
 <div class="card">
   <div class="card-body">
-          <h4 class="card-title">{{dishname}}</h4>
+                <p class="card-text">{{ name }}</p>
+        <h4 class="card-title">{{dishname}}</h4>
     <p class="card-text">
       Price: £ {{price}}
     </p>
@@ -117,10 +119,11 @@ required>
                     </p>
                         <p class="card-text">
                         Available: {{available}}
-                         <a href="/update/{{_id}}" value="Make Unavailable">Make Unavailable </a>
+                         <a href="/update/{{_id}}/{{available}}" value="Change Availability" style="text-align:right";>Change Availability </a>
                         </p> 
       <div class="card-footer">
-        Ingredients: {{content.ingredients}}
+        Ingredients: {{ingredients}}
+        Allergens: {{allergens}}
       </div>
 </div>
 <div class="column">

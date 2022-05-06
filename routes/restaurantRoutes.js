@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/guestbookControllers.js');
+const controller = require('../controllers/restaurantControllers.js');
 const {login} = require('../auth/auth')
 const {verify} = require('../auth/auth')
 
@@ -10,7 +10,6 @@ router.get("/menu", controller.menu_page);
 router.get("/", controller.landing_page);
 router.get("/about", controller.about_page);
 router.get("/about", controller.review_page);
-router.post('/new', verify, controller.post_new_entry);
 router.get('/register', controller.show_register_page);
 router.post('/register', controller.post_new_user);
 router.get("/loggedInStaff",verify, controller.loggedInStaff);
@@ -20,7 +19,7 @@ router.get("/logout", controller.logout);
 router.post("/delete", controller.delete);
 
 
-router.get('/update/:id', (req, res) => {
+router.get('/update/:id/:available/', (req, res) => {
     controller.updateMenu(req, res);
   })
 

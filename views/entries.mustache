@@ -9,11 +9,11 @@
 
 
   <div class="menus">
-    <div class="column" id="menus">
+    <div class="column" id="menu">
       <div class="container-sm" id="left">
             <h4>Lunch Items<h4>
               {{#LunchMenus}}
-            <div class="card">
+            <div class="card" id="menucard">
             <div class="card-body">
               <h4 class="card-title">{{dishname}}</h4>
      <p class="card-text">
@@ -23,7 +23,8 @@
      Description: {{description}}
     </p>          
       <div class="card-footer">
-        Ingredients: {{content.ingredients}}
+        Ingredients: {{ingredients}}
+        Allergens: {{allergens}}
       </div>
 </div>
 </div>
@@ -34,7 +35,7 @@
 <div class="container-sm" id="right">
 <h4>Dinner Items<h4>
 {{#DinnerMenus}}
-<div class="card">
+<div class="card" id="menucard">
   <div class="card-body">
           <h4 class="card-title">{{dishname}}</h4>
     <p class="card-text">
@@ -44,7 +45,8 @@
      Description: {{description}}
     </p>          
       <div class="card-footer">
-        Ingredients: {{content.ingredients}}
+        Ingredients: {{ingredients}}
+        Allergens: {{allergens}}
       </div>
 </div>
 </div>

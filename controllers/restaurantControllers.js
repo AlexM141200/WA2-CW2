@@ -1,12 +1,13 @@
-const guestbookDAO = require("../models/guestbookModel");
+const menuDAO = require("../models/menuModel");
 const userDao = require("../models/userModel.js");
 
-const db = new guestbookDAO();
+const db = new menuDAO();
 db.init();
 
 exports.show_login = function (req, res) {
   res.render("staff/login");
 };
+
 
 exports.handle_login = function (req, res) {
 	db.getAllLunchMenus()
@@ -44,39 +45,35 @@ exports.menu_page = function (req, res) {
 			});
 };
 
+//show home page
 exports.landing_page = function (req, res) {
   res.render("landingPage", {
     title: "Manson's Bistro",
   });
 };
 
+//show reviews page
 exports.review_page = function (req, res) {
   res.render("review", {
-    title: "Manson's Bistro",
+    title: "Reviews",
   });
 };
 
+//show about us page
 exports.about_page = function (req, res) {
   res.render("about", {
     title: "About Us",
   });
 };
 
-
-exports.post_new_entry = function (req, res) {
-  console.log("processing post-new_entry controller");
-  if (!req.body.author) {
-    response.status(400).send("Entries must have an author.");
-    return;
-  }
-  db.addEntry(req.body.author, req.body.subject, req.body.contents);
-  res.redirect("/loggedIn");
-};
-
+//show registration form page
 exports.show_register_page = function (req, res) {
-  res.render("staff/register");
+  res.render("staff/register",{
+    title: "Register",
+  });
 };
 
+//new user register function
 exports.post_new_user = function (req, res) {
   const user = req.body.username;
   const password = req.body.pass;
@@ -96,7 +93,7 @@ exports.post_new_user = function (req, res) {
   });
 };
 
-
+//if staff is already logged in, redirects them to staff dashboard
 exports.loggedInStaff = function (req, res) {
   db.getLunchMenus()
   .then((lunchMenus) => {
@@ -115,17 +112,18 @@ exports.loggedInStaff = function (req, res) {
     });
 };
   
-
+//logout
 exports.logout = function (req, res) {
   res.clearCookie("jwt").status(200).redirect("/");
 };
 
+//delete a food from database, by ID
 exports.delete = function (req, res) {
    db.delete(req.params.id);
    res.redirect("/loggedInStaff");
   }
 
-
+//Add a new food to the database
 exports.addFood = function(req,res){
   console.log("processing post-new_entry controller");
   if (!req.body) {
@@ -145,7 +143,7 @@ exports.addFood = function(req,res){
 
 //Initial Code for Update Menu - Unfinished
 exports.updateMenu=function(req,res){
-  db.updateMenu(req.params.id);
+  db.updateMenu(req.params.id, req.params.available);
   res.redirect("/loggedInStaff");
 }
 

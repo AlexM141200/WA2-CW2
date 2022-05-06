@@ -19,7 +19,7 @@ const mustache = require('mustache-express');
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
 
-const router = require('./routes/guestbookRoutes');
+const router = require('./routes/restaurantRoutes');
 app.use('/', router);
 
 app.listen(3000, () => {
