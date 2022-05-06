@@ -62,12 +62,6 @@ exports.about_page = function (req, res) {
   });
 };
 
-exports.show_new_entries = function (req, res) {
-  res.render("newEntry", {
-    title: "Guest Book",
-    user: "user",
-  });
-};
 
 exports.post_new_entry = function (req, res) {
   console.log("processing post-new_entry controller");
@@ -77,22 +71,6 @@ exports.post_new_entry = function (req, res) {
   }
   db.addEntry(req.body.author, req.body.subject, req.body.contents);
   res.redirect("/loggedIn");
-};
-
-exports.show_user_entries = function (req, res) {
-  let user = req.params.menu;
-  db.getEntriesByUser(menu)
-    .then((entries) => {
-      res.render("entries", {
-        title: "Guest Book",
-        menu: menu,
-        foods: foods,
-      });
-    })
-    .catch((err) => {
-      console.log("Error: ");
-      console.log(JSON.stringify(err));
-    });
 };
 
 exports.show_register_page = function (req, res) {
@@ -118,36 +96,37 @@ exports.post_new_user = function (req, res) {
   });
 };
 
-exports.loggedIn_landing = function (req, res) {
-  db.getAllEntries()
-    .then((list) => {
-      res.render("entries", {
-        title: "Guest Book",
+
+exports.loggedInStaff = function (req, res) {
+  db.getLunchMenus()
+  .then((lunchMenus) => {
+  db.getDinnerMenus()
+    .then((dinnerMenus) => {
+      res.render("staff/staffDashboard", {
+        title: "Menus",
+        LunchMenus: lunchMenus,
+        DinnerMenus: dinnerMenus,
         user: "user",
-        entries: list,
-      });
-    })
+        })
+        });
+      })
     .catch((err) => {
-      console.log("promise rejected", err);
+    console.log("Promise Rejected", err);
     });
 };
+  
 
 exports.logout = function (req, res) {
   res.clearCookie("jwt").status(200).redirect("/");
 };
 
-exports.delete_food= function (req, res) {
-  db.remove({ name: req.body.dishname }, {}, function (err, docsRem) {
-    if (err) {
-      console.log("error deleting document");
-    } else {
-      console.log(docsRem, "document removed from database");
-      res.redirect("/");
-    }
-  })
-}
+exports.delete = function (req, res) {
+   db.delete(req.params.id);
+   res.redirect("/loggedInStaff");
+  }
 
-exports.addFood= function(req,res){
+
+exports.addFood = function(req,res){
   console.log("processing post-new_entry controller");
   if (!req.body) {
     response.status(400).send("Please Fix Entry");
@@ -161,30 +140,12 @@ exports.addFood= function(req,res){
               req.body.price,
               req.body.available
   )
-  db.getLunchMenus()
-		.then((lunchMenus) => {
-		db.getDinnerMenus()
-			.then((dinnerMenus) => {
-				res.render("entries", {
-          title: "Menus",
-					LunchMenus: lunchMenus,
-					DinnerMenus: dinnerMenus
-					})
-					});
-				})
-			.catch((err) => {
-			console.log("Promise Rejected", err);
-			});
+  res.redirect("/loggedinStaff");
 }
 
 //Initial Code for Update Menu - Unfinished
 exports.updateMenu=function(req,res){
-  console.log("processing post-new_entry controller");
-  if (!req.body) {
-    response.status(400).send("Entry is invalid.");
-    return;
-  }
-  db.update(req.body.author, req.body.subject, req.body.contents);
-  res.redirect("/menu");
+  db.updateMenu(req.params.id);
+  res.redirect("/loggedInStaff");
 }
 

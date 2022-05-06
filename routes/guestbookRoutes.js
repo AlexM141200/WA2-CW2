@@ -10,19 +10,26 @@ router.get("/menu", controller.menu_page);
 router.get("/", controller.landing_page);
 router.get("/about", controller.about_page);
 router.get("/about", controller.review_page);
-router.get('/new',verify,controller.show_new_entries);
 router.post('/new', verify, controller.post_new_entry);
-router.get('/posts/:author', controller.show_user_entries);
 router.get('/register', controller.show_register_page);
 router.post('/register', controller.post_new_user);
-router.get("/loggedIn",verify, controller.loggedIn_landing);
+router.get("/loggedInStaff",verify, controller.loggedInStaff);
 router.get("/logout", controller.logout);
-router.get("/deleteFood", controller.new_delete_food);
+
+
+router.post("/delete", controller.delete);
+
+
+router.get('/update/:id', (req, res) => {
+    controller.updateMenu(req, res);
+  })
+
+router.get('/delete/:id', (req, res) => {
+    controller.delete(req, res);
+  })
 
 
 router.post("/addFood", controller.addFood);
-
-
 
 router.use(function(req, res) {
         res.status(404);

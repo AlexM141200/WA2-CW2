@@ -66,6 +66,7 @@ class GuestBook {
             available: false,
 
         });
+        console.log("inserted Salmon");
 
         this.db.insert({
             dishname: 'Garlic Bread Starter',
@@ -102,6 +103,7 @@ class GuestBook {
             available: false,
 
         });
+        console.log("inserted Mozzarella Sticks");
 
         this.db.insert({
             dishname: 'Pizza',
@@ -120,6 +122,7 @@ class GuestBook {
             available: false,
 
         });
+        console.log("inserted Pizza");
     }
 
     // function to return all entries from the database
@@ -203,21 +206,17 @@ class GuestBook {
         })
     }
 
-
-    addEntry(author, subject, contents) {
-        var entry = {
-            author: author,
-            subject: subject,
-            contents: contents,
-            published: new Date().toISOString().split('T')[0]
-        }
-        console.log('entry created', entry);
-        this.db.insert(entry, function (err, doc) {
-            if (err) {
-                console.log('Error inserting document', subject);
-            } else {
-                console.log('document inserted into the database', doc);
-            }
+     
+     getAllMenus() {
+        return new Promise((resolve, reject) => {
+            this.db.find({}, function (err, DinnerMenus) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(DinnerMenus);
+                   console.log('function all() returns: ', foods);
+                }
+            })
         })
     }
 
@@ -241,16 +240,31 @@ class GuestBook {
         })
     }
 
-    delete(dishname){
-        this.db.remove({ dishname: dishname }, {}, function (err) {
-            if (err) {
-                console.log('Error deleting', dishname);
-            } else {
-                console.log('Food deleted');
-                res.redirect("/menu")
-            }
-              })
+    delete(id) {
+        return new Promise((resolve, reject) => {
+            this.db.remove({ _id: id }, {}, function (err) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                   console.log('deleted');
+                }
+            })
+        })
     }
+    
+    updateMenu(id){
+        return new Promise((resolve, reject) => {
+            db.update({ _id: id }, { $set: { available: available } }, function (err) {});
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                   console.log('Updated Dish' + _id);
+                }
+            })
+    }
+   
 
 }
 module.exports = GuestBook;
