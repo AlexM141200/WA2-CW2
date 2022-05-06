@@ -143,7 +143,7 @@ exports.addFood = function(req,res){
 
 //Initial Code for Update Menu - Unfinished
 exports.updateMenu=function(req,res){
-  db.updateMenu(req.params.id, req.params.available);
+  db.updateMenu(req.params.id, req.params.dishname, req.params.description, req.params.chefSpecial, req.params.vegetarian, req.params.menu, req.params.price, req.params.available, req.params.ingredients, req.params.allergens,);
   res.redirect("/loggedInStaff");
 }
 

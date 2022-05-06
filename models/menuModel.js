@@ -40,13 +40,13 @@ class Menu {
         console.log("inserted mac&cheese");
 
         this.db.insert({
-            dishname: 'Smoked Salmon',
+            
             description: 'Luscious Smoked Salmon Dish. Served with cream cheese and house salad.',
             chefSpecial: true,
             vegetarian: false,
             menu: 'dinner',
             price: '7.60',
-            available: false,
+            available: true,
             ingredients: ['Salmon', 'Salad', 'Cream Cheese',],
             allergens: ['Cheese', 'Nuts'],
 
@@ -74,7 +74,7 @@ class Menu {
             vegetarian: false,
             menu: 'dinner',
             price: '10.20',
-            available: false,
+            available: true,
             ingredients: ['Mozzarella', 'Bread Crumbs'],
             allergens: ['Cheese'],
     
@@ -89,7 +89,7 @@ class Menu {
             vegetarian: false,
             menu: 'dinner',
             price: '8.35',
-            available: false,
+            available: true,
             ingredients: ['Pizza Dough', 'Mozzarella', 'Tomato Base'],
             allergens: ['Butter', 'Cheese', 'Eggs', 'Milk'],
 
@@ -198,16 +198,15 @@ class Menu {
                     reject(err);
                 } else {
                     resolve();
-                   console.log('deleted');
+                   console.log('Deleted ' + id);
                 }
             })
         })
     }
     
-    updateMenu(id, available){
-        available = !available;
+    updateMenu(id, dishname, description, chefSpecial, vegetarian, menu, price, available, ingredients, allergens){
         return new Promise((resolve, reject) => {
-            this.db.update({ _id: id }, { $set: { available: available } }, function (err) {
+            this.db.update({ _id: id }, { $set: { dishname: dishname, description: description, chefSpecial: chefSpecial, vegetarian: vegetarian, menu: menu, price: price, available: available, ingredients: ingredients, allergens: allergens  } }, function (err, doc) {
                 if (err) {
                     reject(err);
                 } else {
